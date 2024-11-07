@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>레이더 테스트</title>
+</head>
+<body>
+<div id="main" style="width:900px; height: 500px"></div>
+<script src="{{url_for('static', filename='echarts-5.5.1/echarts.min.js')}}"></script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+      title: {
+        text: 'Basic Radar Chart'
+      },
+      legend: {
+        data: ['홍길동', '성춘향']
+      },
+      radar: {
+        indicator: [
+          { name: '국어', max: 100 },
+          { name: '수학', max: 100 },
+          { name: '영어', max: 100 },
+          { name: '사회', max: 100 },
+          { name: '과학', max: 100 }
+        ]
+      },
+      series: [
+        {
+          name: '중간고사 성적',
+          type: 'radar',
+          data: [
+            {
+              value: [88, 97, 77, 83, 99],
+              name: '홍길동',
+                lineStyle: {type: 'dashed'},
+                areaStyle: {color: '#fe8823'}
+            },
+            {
+              value: [66, 77, 88, 88, 99],
+              name: '성춘향',
+                lineStyle: {type: 'dotted'}
+            }
+          ]
+        }
+      ]
+    };
+
+    option && myChart.setOption(option);
+</script>
+</body>
+</html>
