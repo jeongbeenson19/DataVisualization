@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>차트 테스트1</title>
+</head>
+<body>
+<div id="main" style="width:900px; height: 500px"></div>
+<script src="{{url_for('static', filename='echarts-5.5.1/echarts.min.js')}}"></script>
+<script>
+    var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+// prettier-ignore
+const hours = [];
+var n = {{ len(data['y'] )}};
+for(let i=0;i<n;i++) {
+    hours.push('{{ data["y"][i] }}');
+}
+// prettier-ignore
+const days = [
+  'a', 'b', 'c', 'd'
+];
+// prettier-ignore
+const data = {{ my_list }}
+    .map(function (item) {
+    return [item[1], item[0], item[2] || '-'];
+});
+option = {
+  tooltip: {
+    position: 'top'
+  },
+  grid: {
+    height: '50%',
+    top: '10%'
+  },
+  xAxis: {
+    type: 'category',
+    data: hours,
+    splitArea: {
+      show: true
+    }
+  },
+  yAxis: {
+    type: 'category',
+    data: days,
+    splitArea: {
+      show: true
+    }
+  },
+  visualMap: {
+    min: 0,
+    max: 10,
+    calculable: true,
+    orient: 'horizontal',
+    left: 'center',
+    bottom: '15%'
+  },
+  gradientColor: ['#e6aca8', '#e81607'],
+  series: [
+    {
+      name: 'Punch Card',
+      type: 'heatmap',
+      data: data,
+      label: {
+        show: true
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+</body>
+</html>
