@@ -28,6 +28,10 @@ def map_page():
 def map1_page():
     return wc.show_map1()
 
+@app.route('/starbucks')
+def starbucks_page():
+    return wc.show_starbucks()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
